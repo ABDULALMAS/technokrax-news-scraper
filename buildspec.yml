@@ -1,3 +1,26 @@
+# version: 0.2
+# env:
+#   variables:
+#     REGION: us-west-2
+#     VERSION: "1"
+
+# phases:
+#   install:
+#     on-failure: ABORT
+#     runtime-versions:
+#       nodejs: 20
+#   pre_build:
+#     on-failure: ABORT
+#     commands:
+#       - echo "Installing dependencies..."
+#       - npm install
+#   build:
+#     on-failure: ABORT
+#     commands:
+#       - echo "Building..."
+#       - $CODEBUILD_SRC_DIR/deploy.sh
+
+
 version: 0.2
 env:
   variables:
@@ -17,5 +40,7 @@ phases:
   build:
     on-failure: ABORT
     commands:
-      - echo "Building..."
+      - echo "Setting execute permissions for deploy.sh..."
+      - chmod +x $CODEBUILD_SRC_DIR/deploy.sh
+      - echo "Running deploy script..."
       - $CODEBUILD_SRC_DIR/deploy.sh
